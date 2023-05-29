@@ -74,6 +74,7 @@ const Container = styled.div`
       height: 100%;
       top: 0;
       bottom: 0;
+      cursor: pointer;
       width: 50px;
       transition: 0.3s ease-in-out;
       svg {
