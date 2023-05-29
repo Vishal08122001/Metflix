@@ -83,7 +83,7 @@ export const getUserLikedMovies = createAsyncThunk(
   async (email) => {
     const {
       data: { movies },
-    } = await axios.get(`http://localhost:5000/api/user/liked/${email}`);
+    } = await axios.get(`http://localhost:8080/api/user/liked/${email}`);
     return movies;
   }
 );

@@ -32,7 +32,7 @@ const Card = React.memo(({ movieData, key, index, isLiked = false }) => {
   const addToList = async () => {
     try {
       await axios
-        .post("http://localhost:5000/api/user/add", {
+        .post("http://localhost:8080/api/user/add", {
           email,
           data: movieData,
         })

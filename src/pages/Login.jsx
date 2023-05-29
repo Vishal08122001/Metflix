@@ -37,7 +37,7 @@ const Login = () => {
       setErrors((prevErrors) => ({
         ...prevErrors,
         password:
-          "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character",
+          "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character.",
       }));
       return;
     }
@@ -45,7 +45,11 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
     } catch (error) {
-      console.log("Error " + error);
+      const msg = error.code.split("/");
+      setErrors((prev) => ({
+        ...prev,
+        password: msg[1],
+      }));
     }
   };
 
@@ -84,7 +88,18 @@ const Login = () => {
                 value={formdata.email}
                 onChange={handleChange}
               />
-              {errors.email && window.alert(errors.email)}
+              {errors.email && (
+                <p
+                  style={{
+                    fontSize: "10px",
+                    color: "red",
+                    marginTop: "-1.5rem",
+                    marginBottom: "-1.1rem",
+                  }}
+                >
+                  {errors.email}
+                </p>
+              )}
 
               <>
                 <input
@@ -94,7 +109,19 @@ const Login = () => {
                   value={formdata.password}
                   onChange={handleChange}
                 />
-                {errors.password && window.alert(errors.password)}
+                {errors.password && (
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      color: "red",
+                      marginTop: "-1.5rem",
+                      marginBottom: "-1.1rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {errors.password}
+                  </p>
+                )}
               </>
 
               <button onClick={handleLogin}>Log In</button>

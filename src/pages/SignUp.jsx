@@ -48,7 +48,11 @@ const SignUp = () => {
     try {
       await createUserWithEmailAndPassword(firebaseAuth, email, password);
     } catch (error) {
-      console.log("Error " + error);
+      const msg = error.code.split("/");
+      setErrors((prev) => ({
+        ...prev,
+        password: msg[1],
+      }));
     }
   };
 
@@ -89,7 +93,16 @@ const SignUp = () => {
               value={formdata.email}
               onChange={handleChange}
             />
-            {errors.email && window.alert(errors.email)}
+            {errors.email && (
+              <p
+                style={{
+                  fontSize: "10px",
+                  color: "red",
+                }}
+              >
+                {errors.email}
+              </p>
+            )}
 
             {showPassword && (
               <>
@@ -100,7 +113,17 @@ const SignUp = () => {
                   value={formdata.password}
                   onChange={handleChange}
                 />
-                {errors.password && window.alert(errors.password)}
+                {errors.password && (
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      color: "red",
+                      width: "fit-content",
+                    }}
+                  >
+                    {errors.password}
+                  </p>
+                )}
               </>
             )}
 
@@ -153,13 +176,14 @@ const Container = styled.div`
             outline: none;
           }
         }
+
         button {
           padding: 0.5rem 1rem;
           background-color: #e50914;
           border: none;
           cursor: pointer;
           color: white;
-          font-weight: bolder;
+          foont-weight: bolder;
           font-size: 1.05rem;
         }
       }
@@ -172,6 +196,33 @@ const Container = styled.div`
         border-radius: 0.2rem;
         font-weight: bolder;
         font-size: 1.05rem;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    /* Styles specific to mobile devices */
+    .content {
+      .body {
+        .text {
+          h1 {
+            padding: 0 2rem;
+          }
+        }
+        .form {
+          width: 90%;
+          grid-template-columns: 1fr;
+          input {
+            padding: 1rem;
+          }
+          button {
+            padding: 0.5rem 0.8rem;
+            font-size: 0.9rem;
+          }
+        }
+        button {
+          font-size: 0.9rem;
+        }
       }
     }
   }
