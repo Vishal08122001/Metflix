@@ -6,17 +6,16 @@ import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/Firebase-config";
 
-const Navbar = ({ isScrolled }) => {
+const Navbar = ({ isScrolled, search, setSearch }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setinputHover] = useState(false);
   const navigate = useNavigate();
   const Links = [
     { name: "Home", link: "/" },
-    { name: "TV Shows", link: "/tv" },
+    { name: "TV", link: "/tv" },
     { name: "Movies", link: "/movies" },
     { name: "MyList", link: "/myList" },
   ];
-
   onAuthStateChanged(firebaseAuth, (currUser) => {
     if (!currUser) navigate("/login");
   });
@@ -60,6 +59,9 @@ const Navbar = ({ isScrolled }) => {
             <input
               type="text"
               placeholder="Search"
+              onClick={() => {
+                setShowSearch(true);
+              }}
               onMouseEnter={() => {
                 setinputHover(true);
               }}
@@ -69,6 +71,10 @@ const Navbar = ({ isScrolled }) => {
               onBlur={() => {
                 setShowSearch(false);
                 setinputHover(false);
+              }}
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
               }}
             />
           </div>
@@ -190,7 +196,16 @@ const Container = styled.div`
           }
         }
         .links {
-          display: none;
+          display: flex;
+          font-size: 1rem;
+          gap: 0.4rem;
+          margin-left: -1rem;
+          li {
+            a {
+              color: white;
+              text-decoration: none;
+            }
+          }
         }
       }
 

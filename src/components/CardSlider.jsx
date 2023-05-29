@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const CardSlider = React.memo(({ data, title }) => {
-  const [showControls, setShowControls] = useState(false);
   const [slider, setSlider] = useState(0);
   const listRef = useRef(null);
 
@@ -21,23 +20,11 @@ const CardSlider = React.memo(({ data, title }) => {
   };
 
   return (
-    <Container
-      className="flex column"
-      onMouseEnter={() => {
-        setShowControls(true);
-      }}
-      onMouseLeave={() => {
-        setShowControls(false);
-      }}
-    >
+    <Container className="flex column">
       <h1>{title}</h1>
 
       <div className="wrapper">
-        <div
-          className={`slider-action left ${
-            !showControls ? "none" : ""
-          } flex a-center j-center`}
-        >
+        <div className={`slider-action left flex a-center j-center`}>
           <AiOutlineLeft
             onClick={() => {
               handleDirection("left");
@@ -54,11 +41,7 @@ const CardSlider = React.memo(({ data, title }) => {
           })}
         </div>
 
-        <div
-          className={`slider-action right ${
-            !showControls ? "none" : ""
-          } flex a-center j-center`}
-        >
+        <div className={`slider-action right  flex a-center j-center`}>
           <AiOutlineRight
             onClick={() => {
               handleDirection("right");

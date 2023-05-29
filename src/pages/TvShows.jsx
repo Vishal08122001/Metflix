@@ -9,10 +9,11 @@ import SelectGenre from "../components/SelectGenre";
 
 const TvShows = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   const GenresLoaded = useSelector((state) => state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies);
   const genres = useSelector((state) => state.netflix.genres);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getGenres());
@@ -33,15 +34,19 @@ const TvShows = () => {
     };
   }, []);
 
+  const filteredMovies = movies.filter(({ name }) => {
+    return name.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Navbar isScrolled={isScrolled} search={search} setSearch={setSearch} />
       </div>
 
       <div className="data">
         <SelectGenre genres={genres} type="tv" />
-        {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
+        {movies.length ? <Slider movies={filteredMovies} /> : <NotAvailable />}
       </div>
     </Container>
   );

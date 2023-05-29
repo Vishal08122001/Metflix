@@ -12,6 +12,7 @@ const Movies = () => {
   const dispatch = useDispatch();
   const GenresLoaded = useSelector((state) => state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies);
+  const [search, setSearch] = useState("");
   const genres = useSelector((state) => state.netflix.genres);
 
   useEffect(() => {
@@ -33,15 +34,19 @@ const Movies = () => {
     };
   }, []);
 
+  const filteredMovies = movies.filter(({ name }) => {
+    return name.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <Container>
       <div className="navbar">
-        <Navbar isScrolled={isScrolled} />
+        <Navbar isScrolled={isScrolled} search={search} setSearch={setSearch} />
       </div>
 
       <div className="data">
         <SelectGenre genres={genres} type="movie" />
-        {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
+        {movies.length ? <Slider movies={filteredMovies} /> : <NotAvailable />}
       </div>
     </Container>
   );

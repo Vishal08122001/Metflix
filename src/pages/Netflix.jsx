@@ -12,9 +12,11 @@ import Slider from "../components/Slider";
 
 const Netflix = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const GenresLoaded = useSelector((state) => state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getGenres());
@@ -35,11 +37,13 @@ const Netflix = () => {
     };
   }, []);
 
-  const navigate = useNavigate();
+  const filteredMovies = movies.filter(({ name }) => {
+    return name.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <Container>
-      <Navbar isScrolled={isScrolled} />
+      <Navbar isScrolled={isScrolled} search={search} setSearch={setSearch} />
       <div className="hero">
         <img src={bgImg} alt="background" className="background-image" />
         <div className="container">
@@ -61,7 +65,7 @@ const Netflix = () => {
           </div>
         </div>
       </div>
-      <Slider movies={movies} />
+      <Slider movies={filteredMovies} />
     </Container>
   );
 };
@@ -140,6 +144,10 @@ const Container = styled.div`
 
   @media (max-width: 480px) {
     .hero {
+      img {
+        height: 60vh;
+        width: 100vw;
+      }
       .container {
         .logo {
           img {
