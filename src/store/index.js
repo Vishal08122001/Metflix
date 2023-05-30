@@ -84,8 +84,8 @@ export const getUserLikedMovies = createAsyncThunk(
     const {
       data: { movies },
     } = await axios.get(
-      `https://agreeable-button-lion.cyclic.app/api/user/liked/${email}`
-    );
+      `http://localhost:8080/api/user/liked/${email}`
+    )
     return movies;
   }
 );

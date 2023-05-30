@@ -16,6 +16,8 @@ const UserLiked = () => {
   const movies = useSelector((state) => state.netflix.movies);
   const [email, setEmail] = useState(undefined);
 
+
+  
   onAuthStateChanged(firebaseAuth, (currUser) => {
     if (currUser) setEmail(currUser.email);
     else navigate("/login");
@@ -25,7 +27,7 @@ const UserLiked = () => {
     if (email) {
       dispatch(getUserLikedMovies(email));
     }
-  }, [email, dispatch]);
+  },[email, movies]);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -45,6 +47,7 @@ const UserLiked = () => {
         <div className="grid flex">
           {movies.map((movie, index) => {
             return (
+              
               <div key={index}>
                 <Card movieData={movie} index={movie.id} isLiked="true" />
               </div>
