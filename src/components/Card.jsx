@@ -32,7 +32,7 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
   const addToList = async () => {
     try {
       await axios
-        .post("http://localhost:8080/api/user/add", {
+        .post("https://agreeable-button-lion.cyclic.app/api/user/add", {
           email,
           data: movieData,
         })
@@ -44,13 +44,15 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
     }
   };
 
-  const removefromList = (id)=>{
+  const removefromList = (id) => {
     try {
-      axios.delete(`http://localhost:8080/api/user/liked/${email}/delete/${id}`)
+      axios.delete(
+        `https://agreeable-button-lion.cyclic.app/api/user/liked/${email}/delete/${id}`
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -90,7 +92,10 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
                 <RiThumbUpFill title="Like" />
                 <RiThumbDownFill title="Dislike" />
                 {isLiked ? (
-                  <BsCheck title="Remove from list" onClick={()=>removefromList(movieData.id)} />
+                  <BsCheck
+                    title="Remove from list"
+                    onClick={() => removefromList(movieData.id)}
+                  />
                 ) : (
                   <AiOutlinePlus title="Add to my list" onClick={addToList} />
                 )}
