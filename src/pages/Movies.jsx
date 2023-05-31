@@ -23,7 +23,7 @@ const Movies = () => {
     if (GenresLoaded) {
       dispatch(fetchMovies({ type: "movie" }));
     }
-  }, [GenresLoaded, movies, dispatch]);
+  }, [GenresLoaded, dispatch]);
 
   useEffect(() => {
     window.onscroll = () => {
