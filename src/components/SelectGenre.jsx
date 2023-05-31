@@ -12,6 +12,7 @@ const SelectGenre = ({ genres, type }) => {
 
   return (
     <Select className="flex" onChange={handleGenreChange}>
+      <option value="">Select Genre</option>
       {genres.map((genre) => (
         <option value={genre.id} key={genre.id}>
           {genre.name}

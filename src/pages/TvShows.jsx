@@ -23,7 +23,7 @@ const TvShows = () => {
     if (GenresLoaded) {
       dispatch(fetchMovies({ type: "tv" }));
     }
-  }, [GenresLoaded, dispatch]);
+  }, [dispatch, GenresLoaded]);
 
   useEffect(() => {
     window.onscroll = () => {

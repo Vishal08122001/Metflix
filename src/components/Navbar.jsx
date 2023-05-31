@@ -104,7 +104,7 @@ const Container = styled.div`
     position: fixed;
     z-index: 2;
     padding: 0 4rem;
-    align-item: center;
+    align-items: center;
     transition: 0.3s ease-in-out;
 
     .left {

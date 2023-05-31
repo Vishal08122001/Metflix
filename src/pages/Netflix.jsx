@@ -26,7 +26,7 @@ const Netflix = () => {
     if (GenresLoaded) {
       dispatch(fetchMovies({ type: "all" }));
     }
-  }, [GenresLoaded, dispatch]);
+  }, [dispatch, GenresLoaded]);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -37,8 +37,11 @@ const Netflix = () => {
     };
   }, []);
 
-  const filteredMovies = movies.filter(({ name }) => {
-    return name.toLowerCase().includes(search.toLowerCase());
+  const filteredMovies = movies.filter((movie) => {
+    if (typeof movie.name !== "string") {
+      return false; // Skip filtering if the name is not a string
+    }
+    return movie.name.toLowerCase().includes(search.toLowerCase());
   });
 
   return (
