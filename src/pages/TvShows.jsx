@@ -46,7 +46,11 @@ const TvShows = () => {
 
       <div className="data">
         <SelectGenre genres={genres} type="tv" />
-        {movies.length ? <Slider movies={filteredMovies} /> : <NotAvailable />}
+        {movies.length ? (
+          <Slider movies={filteredMovies} />
+        ) : (
+          <NotAvailable title={"No Movies Available for selected Genre"} />
+        )}
       </div>
     </Container>
   );

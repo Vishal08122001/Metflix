@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import { firebaseAuth } from "../utils/Firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import NotAvailable from "../components/NotAvailable";
 
 const UserLiked = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,15 +43,19 @@ const UserLiked = () => {
       <div className="content flex column">
         <h1>My List</h1>
 
-        <div className="grid flex">
-          {movies.map((movie, index) => {
-            return (
-              <div key={index}>
-                <Card movieData={movie} index={movie.id} isLiked="true" />
-              </div>
-            );
-          })}
-        </div>
+        {movies ? (
+          <div className="grid flex">
+            {movies.map((movie, index) => {
+              return (
+                <div key={index}>
+                  <Card movieData={movie} index={movie.id} isLiked="true" />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <NotAvailable title={"Empty List"} />
+        )}
       </div>
     </Container>
   );
